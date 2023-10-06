@@ -4,13 +4,16 @@ import kotlin.math.sqrt
 
 fun main() {
     try {
+        print("The grouping order is:")
+        val input = readLine() ?: throw Exception("Invalid input")
+
+        val groupingOrder = getGroupingOrderFromArgs(input)
+
         println("Enter a number:")
-        val input = readLine()?.toInt() ?: throw Exception("Invalid input")
+        val input2 = readLine()?.toInt() ?: throw Exception("Invalid input")
 
-        val numberString = input.toString()
+        val numberString = input2.toString()
         val setOfNumbers = generateSetOfNumbers(numberString)
-
-        val groupingOrder = getGroupingOrderFromArgs()
 
         when (groupingOrder) {
             "higher" -> testPrimesHighToLow(setOfNumbers)
@@ -64,8 +67,8 @@ fun isPrime(num: Int): Boolean {
     return true
 }
 
-fun getGroupingOrderFromArgs(): String {
-    val args = System.getProperty("sun.java.command").split(" ").toTypedArray()
-    if (args.contains("higher")) return "higher"
+fun getGroupingOrderFromArgs(grouping: String): String {
+//    val args = System.getProperty("sun.java.command").split(" ").toTypedArray()
+    if (grouping.contains("higher")) return "higher"
     return "lower"
 }
