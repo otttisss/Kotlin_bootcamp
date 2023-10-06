@@ -2,6 +2,7 @@ package com.example.kotlincourse
 
 import kotlin.math.sqrt
 
+
 fun main() {
     try {
         print("The grouping order is:")
