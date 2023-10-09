@@ -16,8 +16,8 @@ fun main() {
         val setOfNumbers = generateSetOfNumbers(numberString)
 
         when (groupingOrder) {
-            "lower" -> testPrimesHighToLow(setOfNumbers)
-            else -> testPrimesLowToHigh(setOfNumbers)
+            "lower" -> testPrimesLowToHigh(setOfNumbers)
+            else -> testPrimesHighToLow(setOfNumbers)
         }
 
     } catch (e: Exception) {
@@ -28,8 +28,8 @@ fun main() {
 
 fun generateSetOfNumbers(number: String): List<String> {
     val setOfNumbers = mutableListOf<String>()
-    for (i in number.indices) {
-        setOfNumbers.add(number.substring(i))
+    for (i in 1..number.length) {
+        setOfNumbers.add(number.substring(0, i))
     }
     return setOfNumbers
 }
@@ -57,11 +57,8 @@ fun testPrimesHighToLow(numbers: List<String>) {
 }
 
 fun isPrime(num: Int): Boolean {
-    if (num <= 1) return false
-    if (num == 2) return true
-    if (num % 2 == 0) return false
-    val sqrtNum = sqrt(num.toDouble()).toInt() + 1
-    for (i in 3 until sqrtNum step 2) {
+    if (num < 2) return false
+    for (i in 2 until num) {
         if (num % i == 0) return false
     }
     return true
