@@ -2,7 +2,6 @@ package com.example.kotlincourse
 
 import kotlin.math.sqrt
 
-
 fun main() {
     try {
         print("The grouping order is:")
@@ -69,7 +68,6 @@ fun isPrime(num: Int): Boolean {
 }
 
 fun getGroupingOrderFromArgs(grouping: String): String {
-//    val args = System.getProperty("sun.java.command").split(" ").toTypedArray()
     if (grouping.contains("higher")) return "higher"
     return "lower"
 }
