@@ -4,7 +4,7 @@ import kotlin.math.abs
 
 fun main() {
     println("Choose output mode: (C)elsius, (F)ahrenheit, or (K)elvin")
-    val scaleInput = readLine()?.toUpperCase()
+    val scaleInput = readLine()
 
     val scale = when (scaleInput) {
         "C" -> "Celsius"
@@ -15,7 +15,7 @@ fun main() {
 
     println("Output mode: $scale")
     println("Enter a season - (W)inter or (S)ummer:")
-    val seasonInput = readLine()?.toUpperCase()
+    val seasonInput = readLine()
 
     val season = when (seasonInput) {
         "W" -> "Winter"
@@ -30,7 +30,22 @@ fun main() {
     val temperatureInput = readLine()?.toFloatOrNull()
 
     if (temperatureInput != null) {
-        val temperature = temperatureInput.toDouble()
+        val temperatureCelsius = temperatureInput.toDouble()
+
+        fun convertToFahrenheit(celsius: Double): Double {
+            return celsius * 9 / 5 + 32
+        }
+
+        fun convertToKelvin(celsius: Double): Double {
+            return celsius + 273.15
+        }
+
+        val temperature = when (scale) {
+            "Celsius" -> temperatureCelsius
+            "Fahrenheit" -> convertToFahrenheit(temperatureCelsius)
+            "Kelvin" -> convertToKelvin(temperatureCelsius)
+            else -> temperatureCelsius
+        }
 
         if ((season == "Summer" && temperature in 22.0..25.0) ||
             (season == "Winter" && temperature in 20.0..22.0)
