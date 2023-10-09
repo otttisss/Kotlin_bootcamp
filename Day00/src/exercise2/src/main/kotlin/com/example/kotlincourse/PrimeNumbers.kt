@@ -4,7 +4,7 @@ import kotlin.math.sqrt
 
 fun main() {
     try {
-        print("The grouping order is:")
+        print("The grouping order is: ")
         val input = readLine() ?: throw Exception("Invalid input")
 
         val groupingOrder = getGroupingOrderFromArgs(input)
