@@ -16,7 +16,7 @@ fun main() {
         val setOfNumbers = generateSetOfNumbers(numberString)
 
         when (groupingOrder) {
-            "higher" -> testPrimesHighToLow(setOfNumbers)
+            "lower" -> testPrimesHighToLow(setOfNumbers)
             else -> testPrimesLowToHigh(setOfNumbers)
         }
 
@@ -68,6 +68,6 @@ fun isPrime(num: Int): Boolean {
 }
 
 fun getGroupingOrderFromArgs(grouping: String): String {
-    if (grouping.contains("higher")) return "higher"
-    return "lower"
+    if (grouping.contains("lower")) return "lower"
+    return "higher"
 }
