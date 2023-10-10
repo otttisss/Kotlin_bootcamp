@@ -61,10 +61,28 @@ fun main() {
             }
 
             val difference = abs(targetTemperature - temperature)
-            println("The comfortable temperature is from ${if (season == "Summer") 22 else 20} to ${if (season == "Summer") 25 else 22} ˚$scale.")
-            println("Please, make it ${if (temperature < targetTemperature) "warmer" else "cooler"} by $difference degrees.")
+
+            val comfortRange = "from ${
+                convertTo(scale, if (season == "Summer") 22.0 else 20.0)
+            } to ${
+                convertTo(scale, if (season == "Summer") 25.0 else 22.0)
+            } ˚$scale."
+
+            println("The comfortable temperature is $comfortRange")
+            println("Please, make it ${
+                if (temperature < targetTemperature) "warmer" else "cooler"
+            } by $difference degrees.")
         }
     } else {
         println("Incorrect input. Enter a temperature:")
+    }
+}
+
+fun convertTo(scale: String, value: Double): Double {
+    return when (scale) {
+        "Celsius" -> value
+        "Fahrenheit" -> (value * 9 / 5) + 32
+        "Kelvin" -> value + 273.15
+        else -> value
     }
 }
