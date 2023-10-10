@@ -47,31 +47,26 @@ fun main() {
             else -> temperatureCelsius
         }
 
-        if ((season == "Summer" && temperature in 22.0..25.0) ||
-            (season == "Winter" && temperature in 20.0..22.0)
+        val targetTemperature = if (season == "Summer") {
+            if (temperature < convertTo(scale, 22.0)) convertTo(scale, 22.0) else convertTo(scale, 25.0)
+        } else {
+            if (temperature < convertTo(scale, 20.0)) convertTo(scale, 20.0) else convertTo(scale, 22.0)
+        }
+
+        val difference = abs(targetTemperature - temperature)
+
+        if ((season == "Summer" && temperature in convertTo(scale, 22.0)..convertTo(scale, 25.0)) ||
+            (season == "Winter" && temperature in convertTo(scale, 20.0)..convertTo(scale, 22.0))
         ) {
             println("The temperature is $temperature ˚$scale")
             println("The temperature is comfortable.")
         } else {
             println("The temperature is $temperature ˚$scale")
-            val targetTemperature = if (season == "Summer") {
-                if (temperature < 22) 22.0 else 25.0
-            } else {
-                if (temperature < 20) 20.0 else 22.0
-            }
 
-            val difference = abs(targetTemperature - temperature)
-
-            val comfortRange = "from ${
-                convertTo(scale, if (season == "Summer") 22.0 else 20.0)
-            } to ${
-                convertTo(scale, if (season == "Summer") 25.0 else 22.0)
-            } ˚$scale."
+            val comfortRange = "from ${convertTo(scale, if (season == "Summer") 22.0 else 20.0)} to ${convertTo(scale, if (season == "Summer") 25.0 else 22.0)} ˚$scale."
 
             println("The comfortable temperature is $comfortRange")
-            println("Please, make it ${
-                if (temperature < targetTemperature) "warmer" else "cooler"
-            } by $difference degrees.")
+            println("Please, make it ${if (temperature < targetTemperature) "warmer" else "cooler"} by $difference degrees.")
         }
     } else {
         println("Incorrect input. Enter a temperature:")
@@ -81,7 +76,7 @@ fun main() {
 fun convertTo(scale: String, value: Double): Double {
     return when (scale) {
         "Celsius" -> value
-        "Fahrenheit" -> (value * 9 / 5) + 32
+        "Fahrenheit" -> value * 9 / 5 + 32
         "Kelvin" -> value + 273.15
         else -> value
     }
