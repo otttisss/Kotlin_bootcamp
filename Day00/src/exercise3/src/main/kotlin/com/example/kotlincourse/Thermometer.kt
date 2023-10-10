@@ -27,49 +27,56 @@ fun main() {
     }
 
     println("Season: $season. Enter a temperature in $scale:")
-    val temperatureInput = readLine()?.toFloatOrNull()
 
-    if (temperatureInput != null) {
-        val temperatureCelsius = temperatureInput.toDouble()
+    var temperatureInput: Float? = null
+    while (temperatureInput == null) {
+        temperatureInput = readLine()?.toFloatOrNull()
 
-        fun convertToFahrenheit(celsius: Double): Double {
-            return celsius * 9 / 5 + 32
+        if (temperatureInput == null) {
+            println("Incorrect input. Enter a temperature:")
         }
+    }
 
-        fun convertToKelvin(celsius: Double): Double {
-            return celsius + 273.15
-        }
+    val temperatureCelsius = temperatureInput.toDouble()
 
-        val temperature = when (scale) {
-            "Celsius" -> temperatureCelsius
-            "Fahrenheit" -> convertToFahrenheit(temperatureCelsius)
-            "Kelvin" -> convertToKelvin(temperatureCelsius)
-            else -> temperatureCelsius
-        }
+    fun convertToFahrenheit(celsius: Double): Double {
+        return celsius * 9 / 5 + 32
+    }
 
-        val targetTemperature = if (season == "Summer") {
-            if (temperature < convertTo(scale, 22.0)) convertTo(scale, 22.0) else convertTo(scale, 25.0)
-        } else {
-            if (temperature < convertTo(scale, 20.0)) convertTo(scale, 20.0) else convertTo(scale, 22.0)
-        }
+    fun convertToKelvin(celsius: Double): Double {
+        return celsius + 273.15
+    }
 
-        val difference = abs(targetTemperature - temperature)
+    val temperature = when (scale) {
+        "Celsius" -> temperatureCelsius
+        "Fahrenheit" -> convertToFahrenheit(temperatureCelsius)
+        "Kelvin" -> convertToKelvin(temperatureCelsius)
+        else -> temperatureCelsius
+    }
 
-        if ((season == "Summer" && temperature in convertTo(scale, 22.0)..convertTo(scale, 25.0)) ||
-            (season == "Winter" && temperature in convertTo(scale, 20.0)..convertTo(scale, 22.0))
-        ) {
-            println("The temperature is $temperature ˚$scale")
-            println("The temperature is comfortable.")
-        } else {
-            println("The temperature is $temperature ˚$scale")
-
-            val comfortRange = "from ${convertTo(scale, if (season == "Summer") 22.0 else 20.0)} to ${convertTo(scale, if (season == "Summer") 25.0 else 22.0)} ˚$scale."
-
-            println("The comfortable temperature is $comfortRange")
-            println("Please, make it ${if (temperature < targetTemperature) "warmer" else "cooler"} by $difference degrees.")
-        }
+    val targetTemperature = if (season == "Summer") {
+        if (temperature < convertTo(scale, 22.0)) convertTo(scale, 22.0) else convertTo(scale, 25.0)
     } else {
-        println("Incorrect input. Enter a temperature:")
+        if (temperature < convertTo(scale, 20.0)) convertTo(scale, 20.0) else convertTo(scale, 22.0)
+    }
+
+    val difference = abs(targetTemperature - temperature)
+
+    if ((season == "Summer" && temperature in convertTo(scale, 22.0)..convertTo(scale, 25.0)) ||
+        (season == "Winter" && temperature in convertTo(scale, 20.0)..convertTo(scale, 22.0))
+    ) {
+        println("The temperature is $temperature ˚$scale")
+        println("The temperature is comfortable.")
+    } else {
+        println("The temperature is $temperature ˚$scale")
+
+        val comfortRange =
+            "from ${convertTo(scale, if (season == "Summer") 22.0 else 20.0)} to ${
+                convertTo(scale, if (season == "Summer") 25.0 else 22.0)
+            } ˚$scale."
+
+        println("The comfortable temperature is $comfortRange")
+        println("Please, make it ${if (temperature < targetTemperature) "warmer" else "cooler"} by $difference degrees.")
     }
 }
 
