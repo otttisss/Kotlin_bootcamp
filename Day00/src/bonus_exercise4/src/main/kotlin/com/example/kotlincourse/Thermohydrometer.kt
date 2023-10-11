@@ -78,6 +78,33 @@ fun main() {
         println("The comfortable temperature is $comfortRange")
         println("Please, make it ${if (temperature < targetTemperature) "warmer" else "cooler"} by $difference degrees.")
     }
+
+    println("Enter humidity:")
+
+    var humidityInput: Float? = null
+    while (humidityInput == null) {
+        humidityInput = readLine()?.toFloatOrNull()
+
+        if (humidityInput == null) {
+            println("Incorrect input. Enter humidity:")
+        }
+    }
+
+    val humidity = humidityInput.toDouble()
+
+    val targetHumidity = if (season == "Summer") {
+        if (humidity < 30) 30.0 else 60.0
+    } else {
+        if (humidity < 30) 30.0 else 45.0
+    }
+
+    if (humidity in targetHumidity..targetHumidity) {
+        println("The humidity is comfortable.")
+    } else {
+        println("The humidity is not comfortable.")
+        val differenceHumidity = abs(targetHumidity - humidity)
+        println("Please, make it ${if (humidity < targetHumidity) "higher" else "lower"} by $differenceHumidity%.")
+    }
 }
 
 fun convertTo(scale: String, value: Double): Double {
@@ -88,3 +115,4 @@ fun convertTo(scale: String, value: Double): Double {
         else -> value
     }
 }
+
